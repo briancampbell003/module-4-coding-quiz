@@ -19,25 +19,40 @@ main {
     margin: 20px 20%;
 }
 
+/* LANDING: TITLE FONT, INSTRUCTIONS FONT */
 main h1 {
     font-size: 30px;
     font-weight: bolder;
-
 }
-
 main h4 {
     margin-top: 25px;
     font-size: 18px;
 }
+/* QUESTIONS: QUESTION FONT, CHOICES FONT */
+main h3 {
+    font-size: 22px;
+    font-weight: bold;
+}
+main p {
+    font-size: 15px;
+}
+
 
 .button {
     padding: 5px;
     margin: 10px;
-    background-color: lightblue ;
-    border-radius: 10px;
 }
 
 #startBtn {
-    background-color: blue;
-    border-radius: 5;
+    background-color: rgb(80, 124, 255);
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    /* border: black 2px; */
+    border-radius: 5px;
+    transition-duration: 0.5s;
+}
+#startBtn:hover {
+    background-color: rgb(78, 175, 255);
+    box-shadow: 6px 6px 12px black;
 }
