@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Coding Quiz</title>
+    <link rel="stylesheet" href="./assets/reset.css">
     <link rel="stylesheet" href="./assets/style.css" />
 </head>
 <body>
-    
+    <header>
+        <aside id="highscores"></aside>
+
+        <!-- Timer div with clock set to 60 until start button click -->
+        <div id="timediv">60 seconds left</div>
+    </header>
+
+    <main>
+        <h1>Timed Coding Quiz</h1>
+        <h4>Attempt to answer the following questions, all related to coding, within the alloted time (see top-right of page). The time remaining is saved as your high score. But be careful! Incorrect answers will penalize your time (and score) by ten seconds... Are you ready?</h4>
+        
+        <div class="button">
+            <button id="startBtn">Start Quiz</button>
+        </div>
+
+    </main>
+
+    <script src="./assets/script.js"></script>
 </body>
 </html>

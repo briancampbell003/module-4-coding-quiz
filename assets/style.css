@@ -1,3 +1,43 @@
-. {
-    
+body {
+    background-image: radial-gradient( lightblue, white );
+}
+
+
+#highscores {
+
+}
+
+#timediv {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+}
+
+main {
+    text-align: center;
+    padding: 15px;
+    margin: 20px 20%;
+}
+
+main h1 {
+    font-size: 30px;
+    font-weight: bolder;
+
+}
+
+main h4 {
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+.button {
+    padding: 5px;
+    margin: 10px;
+    background-color: lightblue ;
+    border-radius: 10px;
+}
+
+#startBtn {
+    background-color: blue;
+    border-radius: 5;
 }
