@@ -21,10 +21,10 @@ const rightAnswers = [ qArray[1], qArray[3], qArray[5], choiceArray[0][2]];
 
 
 // START BUTTON + TIMER + Question page index
-var startBtn = document.getElementById("startBtn");
-var timeEl = document.getElementById("timediv");
-var secondsLeft = 60;
-var i = 0;  
+let startBtn = document.getElementById("startBtn");
+let timeEl = document.getElementById("timediv");
+let secondsLeft = 60;
+let i = 0;  
 
 startBtn.addEventListener("click", function startQuiz() {
     document.querySelector(".landing").hidden = true;
@@ -37,30 +37,27 @@ startBtn.addEventListener("click", function startQuiz() {
 // Generate questions
 function generateQuestions() {
   
-    var question = document.querySelector(".question");
+    let question = document.querySelector(".question");
     question.textContent = qArray[i];
 
 // Generate listed answer buttons using const arrays
     var listEl = document.querySelector(".choices");
 
     for (let x = 0; x < choiceArray[i].length; x++) {
-        var liEl = document.createElement("li");
+        let liEl = document.createElement("li");
         listEl.appendChild(liEl);
-        var buttonEl = document.createElement("button");
+        let buttonEl = document.createElement("button");
         liEl.appendChild(buttonEl);
 
         buttonEl.textContent = choiceArray[i][x];
-        // buttonEl.addEventListener("click", NextQuestion());
+        buttonEl.addEventListener("click", function Next() {
+            i++;
+            generateQuestions();
+        });
     }
-
 }
 
-// function NextQuestion(){
-//     var question = document.querySelector(".question");
-//     question.textContent = qArray[i];
-//     i++;
-//     generateQuestions();
-// }
+// ADD RIGHT/WRONG ANSWER LOGIC
 
 
 
@@ -73,8 +70,9 @@ function generateQuestions() {
 
 
 console.log(i);
+
 function startTimer() {
-    var timerInterval = setInterval(function() {
+    let timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.innerHTML = secondsLeft + " seconds left";
         
