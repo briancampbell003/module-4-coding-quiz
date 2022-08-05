@@ -3,9 +3,9 @@ body {
 }
 
 
-#highscores {
+/* #highscores {
 
-}
+} */
 
 #timediv {
     position: absolute;
@@ -58,5 +58,7 @@ main {
     padding: 8px;
     margin: 2px;
     width: 400px;
+    height: 35px;
     text-align: left;
+
 }
