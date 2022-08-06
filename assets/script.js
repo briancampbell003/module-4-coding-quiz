@@ -41,6 +41,7 @@ document.querySelector(".qPages").hidden = true;
 
 startBtn.addEventListener("click", function startQuiz() {
     document.querySelector(".landing").hidden = true;
+    document.querySelector(".qPages").hidden = false;
     startTimer();
     generateQuestion();
 })
@@ -49,7 +50,7 @@ startBtn.addEventListener("click", function startQuiz() {
 
 // Generate questions
 function generateQuestion() {
-    document.querySelector(".qPages").hidden = false;
+
 
     question.textContent = qArray[i];
 
@@ -93,6 +94,7 @@ function generateQuestion() {
     else{
         btn3.addEventListener("click", wrongAns);
     }
+
 }
 
 // function Next(){
@@ -105,14 +107,36 @@ function rightAns(){
     liveCheck.textContent = "Correct! ✅ 😀";
     console.log("yes!");
     i++;
+    if (i>7) {
+        GameOver();
+    }
+    btn0.removeEventListener("click", rightAns);
+    btn0.removeEventListener("click", wrongAns);
+    btn1.removeEventListener("click", rightAns);
+    btn1.removeEventListener("click", wrongAns);
+    btn2.removeEventListener("click", rightAns);
+    btn2.removeEventListener("click", wrongAns);
+    btn3.removeEventListener("click", rightAns);
+    btn3.removeEventListener("click", wrongAns);
     generateQuestion();
 }
 
 function wrongAns(){
     liveCheck.textContent = "Wrong! ❌ 😢";
-    // secondsLeft = secondsLeft - 10;
+    secondsLeft = secondsLeft - 10;
     console.log("nope!!");
     i++;
+    if (i>7) {
+        GameOver();
+    }
+    btn0.removeEventListener("click", rightAns);
+    btn0.removeEventListener("click", wrongAns);
+    btn1.removeEventListener("click", rightAns);
+    btn1.removeEventListener("click", wrongAns);
+    btn2.removeEventListener("click", rightAns);
+    btn2.removeEventListener("click", wrongAns);
+    btn3.removeEventListener("click", rightAns);
+    btn3.removeEventListener("click", wrongAns);
     generateQuestion();
 }
 
@@ -126,10 +150,17 @@ function startTimer() {
         timeEl.setAttribute("style", "color: darkred; font-size: 20px; font-weight: bold");
     }
 
-    // if(secondsLeft === 0) {
-    //   clearInterval(timerInterval);
-    //   // Calls game over function
-    //   gameOver();
-    // }
+    if(secondsLeft <= 0) {
+      clearInterval(timerInterval);
+      GameOver();
+    }
     }, 1000);
 };
+
+function GameOver() {
+    let 
+    document.querySelector(".qPages").hidden = true;
+    document.getElementById("timediv").hidden = true;
+    liveCheck.textContent = "GAME OVER";
+
+}
