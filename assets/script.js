@@ -20,7 +20,6 @@ const choiceArray = [
     q7arr = [".html", ".js", ".css", ".java"]
 ]
 const rightAnswers = [ choiceArray[0][2], choiceArray[1][1], choiceArray[2][0], choiceArray[3][2], choiceArray[4][0], choiceArray[5][2], choiceArray[6][2], choiceArray[7][1] ];
-// HOPEFULLY NOT NECESSARY -> const wrongAnswers = [];
 
 
 // START BUTTON + TIMER + Question page index
@@ -33,11 +32,15 @@ let btn1 = document.getElementById("btn1");
 let btn2 = document.getElementById("btn2");
 let btn3 = document.getElementById("btn3");
 let liveCheck = document.getElementById("liveCheck");
+let hiScores = document.getElementById("highscores");
+
+let hiScoreArray = [];
 let secondsLeft = 60;
 let i = 0;  
 
 
 document.querySelector(".qPages").hidden = true;
+document.querySelector(".gameOver").hidden = true;
 
 startBtn.addEventListener("click", function startQuiz() {
     document.querySelector(".landing").hidden = true;
@@ -81,10 +84,8 @@ function generateQuestion() {
     }
 
     if( rightAnswers.includes(btn2.textContent)) {
-
         btn2.addEventListener("click", rightAns);
     } else{
-        console.log(btn2.textContent);
         btn2.addEventListener("click", wrongAns);
     }
 
@@ -95,6 +96,9 @@ function generateQuestion() {
         btn3.addEventListener("click", wrongAns);
     }
 
+    if (i>6) {
+        GameOver();
+    }
 }
 
 // function Next(){
@@ -107,9 +111,7 @@ function rightAns(){
     liveCheck.textContent = "Correct! ✅ 😀";
     console.log("yes!");
     i++;
-    if (i>7) {
-        GameOver();
-    }
+
     btn0.removeEventListener("click", rightAns);
     btn0.removeEventListener("click", wrongAns);
     btn1.removeEventListener("click", rightAns);
@@ -126,9 +128,7 @@ function wrongAns(){
     secondsLeft = secondsLeft - 10;
     console.log("nope!!");
     i++;
-    if (i>7) {
-        GameOver();
-    }
+
     btn0.removeEventListener("click", rightAns);
     btn0.removeEventListener("click", wrongAns);
     btn1.removeEventListener("click", rightAns);
@@ -157,10 +157,33 @@ function startTimer() {
     }, 1000);
 };
 
+
+
+// ADD initials submission form to GameOver function, fix high score display function
+
 function GameOver() {
-    let 
+    let yourScore = secondsLeft ;
+    localStorage.setItem("yourScore", yourScore);
     document.querySelector(".qPages").hidden = true;
     document.getElementById("timediv").hidden = true;
-    liveCheck.textContent = "GAME OVER";
+    document.querySelector(".gameOver").hidden = false;
+    liveCheck.textContent = "GAME OVER. Your score: " + yourScore;
 
+    let scoreBtn = document.getElementById("saveScore");
+    scoreBtn.textContent = "Save score";
+    scoreBtn.addEventListener("click", saveScore);
+}
+
+function saveScore() {
+    document.querySelector(".gameOver").hidden = true;
+
+    let yourScore = localStorage.getItem("yourScore");
+    let initials = document.querySelector("#initials").value;
+    hiScoreArray.push(initials + ": " + yourScore);
+    
+    localStorage.setItem("highScores", hiScoreArray);
+    hiScoreArray = localStorage.getItem("highScores");
+    
+    console.log(hiScoreArray);
+    hiScores.textContent = hiScoreArray;
 }
