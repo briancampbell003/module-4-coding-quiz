@@ -3,9 +3,6 @@ body {
 }
 
 
-/* #highscores {
-
-} */
 
 #timediv {
     position: absolute;
@@ -61,4 +58,14 @@ main {
     height: 35px;
     text-align: left;
 
+}
+
+#liveCheck {
+    padding: 8px;
+    margin: 5px;
+}
+
+#saveScore {
+    padding: 3px;
+    margin: 10px;
 }

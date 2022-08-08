@@ -34,7 +34,9 @@ let btn3 = document.getElementById("btn3");
 let liveCheck = document.getElementById("liveCheck");
 let hiScores = document.getElementById("highscores");
 
+// fix issue with local memory and high score array
 let hiScoreArray = [];
+let yourScore = localStorage.getItem("highScores");
 let secondsLeft = 60;
 let i = 0;  
 
@@ -168,6 +170,7 @@ function GameOver() {
     document.getElementById("timediv").hidden = true;
     document.querySelector(".gameOver").hidden = false;
     liveCheck.textContent = "GAME OVER. Your score: " + yourScore;
+    liveCheck.setAttribute("style", "front-size: 25px; font-weight: bold; ");
 
     let scoreBtn = document.getElementById("saveScore");
     scoreBtn.textContent = "Save score";
@@ -176,6 +179,7 @@ function GameOver() {
 
 function saveScore() {
     document.querySelector(".gameOver").hidden = true;
+    document.querySelector(".liveGrade").hidden = true;
 
     let yourScore = localStorage.getItem("yourScore");
     let initials = document.querySelector("#initials").value;
@@ -185,5 +189,8 @@ function saveScore() {
     hiScoreArray = localStorage.getItem("highScores");
     
     console.log(hiScoreArray);
+
+    var hiScoreHeading = document.getElementById("hiScoreHeading");
+    hiScoreHeading.textContent = "HIGH SCORES:";
     hiScores.textContent = hiScoreArray;
 }
