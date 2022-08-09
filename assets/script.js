@@ -35,8 +35,14 @@ let liveCheck = document.getElementById("liveCheck");
 let hiScores = document.getElementById("highscores");
 
 // fix issue with local memory and high score array
+
+// if (localStorage.getItem("highScores") != null) {
+//     let hiScoreArray = localStorage.getItem("highScores");
+// } else {
+//     let hiScoreArray = [];
+// }
+let StoredScores = JSON.parse(localStorage.getItem("highScores"));
 let hiScoreArray = [];
-let yourScore = localStorage.getItem("highScores");
 let secondsLeft = 60;
 let i = 0;  
 
@@ -50,8 +56,6 @@ startBtn.addEventListener("click", function startQuiz() {
     startTimer();
     generateQuestion();
 })
-
-
 
 // Generate questions
 function generateQuestion() {
@@ -142,7 +146,6 @@ function wrongAns(){
     generateQuestion();
 }
 
-
 function startTimer() {
     let timerInterval = setInterval(function() {
     secondsLeft--;
@@ -159,13 +162,13 @@ function startTimer() {
     }, 1000);
 };
 
-
-
-// ADD initials submission form to GameOver function, fix high score display function
-
 function GameOver() {
     let yourScore = secondsLeft ;
-    localStorage.setItem("yourScore", yourScore);
+    if (yourScore < 0) {
+        yourScore = 0;
+    }
+    localStorage.setItem("newScore", yourScore);
+
     document.querySelector(".qPages").hidden = true;
     document.getElementById("timediv").hidden = true;
     document.querySelector(".gameOver").hidden = false;
@@ -181,16 +184,28 @@ function saveScore() {
     document.querySelector(".gameOver").hidden = true;
     document.querySelector(".liveGrade").hidden = true;
 
-    let yourScore = localStorage.getItem("yourScore");
     let initials = document.querySelector("#initials").value;
+    let yourScore = localStorage.getItem("newScore");
+ 
+    
     hiScoreArray.push(initials + ": " + yourScore);
-    
-    localStorage.setItem("highScores", hiScoreArray);
-    hiScoreArray = localStorage.getItem("highScores");
-    
-    console.log(hiScoreArray);
+    StoredScores = StoredScores.concat(hiScoreArray);
+    localStorage.setItem("highScores", JSON.stringify(StoredScores));
 
-    var hiScoreHeading = document.getElementById("hiScoreHeading");
+
+    let hiScoreHeading = document.getElementById("hiScoreHeading");
     hiScoreHeading.textContent = "HIGH SCORES:";
-    hiScores.textContent = hiScoreArray;
+    
+    let hiScoreList = document.getElementById("hiScoreList");
+    let displayScores = JSON.parse(localStorage.getItem("highScores"));
+    for (let i = 0; i < displayScores.length; i++) {
+        let score = document.createElement("li");
+        hiScoreList.appendChild(score);
+        score.textContent = displayScores[i];
+
+    }
+
+    hiScores.textContent = StoredScores;
+
+
 }
