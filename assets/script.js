@@ -34,15 +34,16 @@ let btn3 = document.getElementById("btn3");
 let liveCheck = document.getElementById("liveCheck");
 let hiScores = document.getElementById("highscores");
 
-// fix issue with local memory and high score array
 
-// if (localStorage.getItem("highScores") != null) {
-//     let hiScoreArray = localStorage.getItem("highScores");
-// } else {
-//     let hiScoreArray = [];
-// }
-let StoredScores = JSON.parse(localStorage.getItem("highScores"));
-let hiScoreArray = [];
+// let StoredScores = JSON.parse(localStorage.getItem("highScores"));
+
+console.log(JSON.parse(localStorage.getItem("highScores")));
+// let StoredScores = localStorage.getItem("highScores");
+
+
+
+// let hiScore = {};
+
 let secondsLeft = 60;
 let i = 0;  
 
@@ -184,28 +185,34 @@ function saveScore() {
     document.querySelector(".gameOver").hidden = true;
     document.querySelector(".liveGrade").hidden = true;
 
-    let initials = document.querySelector("#initials").value;
-    let yourScore = localStorage.getItem("newScore");
- 
-    
-    hiScoreArray.push(initials + ": " + yourScore);
-    StoredScores = StoredScores.concat(hiScoreArray);
-    localStorage.setItem("highScores", JSON.stringify(StoredScores));
-
-
     let hiScoreHeading = document.getElementById("hiScoreHeading");
     hiScoreHeading.textContent = "HIGH SCORES:";
+
+    let initials = document.querySelector("#initials").value;
+    let yourScore = localStorage.getItem("newScore");
+    let hiScore = {initials:initials, score:yourScore};
     
+    let hiScoreArray = JSON.parse(localStorage.getItem("highScores")) || [];
+    hiScoreArray.push(hiScore);
+
+    // StoredScores = StoredScores.concat(hiScoreArray);
+
+    localStorage.setItem("highScores", JSON.stringify(hiScoreArray));
+    // localStorage.setItem("highScores", StoredScores);
+
     let hiScoreList = document.getElementById("hiScoreList");
-    let displayScores = JSON.parse(localStorage.getItem("highScores"));
-    for (let i = 0; i < displayScores.length; i++) {
-        let score = document.createElement("li");
-        hiScoreList.appendChild(score);
-        score.textContent = displayScores[i];
+
+
+
+    for (let i = 0; i < hiScoreArray.length; i++) {
+        let liScore = document.createElement("li");
+        hiScoreList.appendChild(liScore);
+        liScore.textContent = hiScoreArray[i].initials + ": " + hiScoreArray[i].score;
 
     }
 
-    hiScores.textContent = StoredScores;
+    console.log(hiScoreArray);
 
+    hiScores.textContent = StoredScores;
 
 }
