@@ -1,3 +1,4 @@
+// Constant declarations for questions, answer choices
 const qArray = [
     "Javascript is called in an html document using which tag?",
     "In the context of web development, what does DOM stand for?",
@@ -22,7 +23,7 @@ const choiceArray = [
 const rightAnswers = [ choiceArray[0][2], choiceArray[1][1], choiceArray[2][0], choiceArray[3][2], choiceArray[4][0], choiceArray[5][2], choiceArray[6][2], choiceArray[7][1] ];
 
 
-// START BUTTON + TIMER + Question page index
+// Universal variable declarations for later use
 let startBtn = document.getElementById("startBtn");
 let timeEl = document.getElementById("timediv");
 let question = document.querySelector(".question");
@@ -32,52 +33,33 @@ let btn1 = document.getElementById("btn1");
 let btn2 = document.getElementById("btn2");
 let btn3 = document.getElementById("btn3");
 let liveCheck = document.getElementById("liveCheck");
-let hiScores = document.getElementById("highscores");
-
-
-// let StoredScores = JSON.parse(localStorage.getItem("highScores"));
-
-console.log(JSON.parse(localStorage.getItem("highScores")));
-// let StoredScores = localStorage.getItem("highScores");
-
-
-
-// let hiScore = {};
-
 let secondsLeft = 60;
 let i = 0;  
 
-
+// Hide content for future display
 document.querySelector(".qPages").hidden = true;
 document.querySelector(".gameOver").hidden = true;
 
+// Button to begin the quiz
 startBtn.addEventListener("click", function startQuiz() {
     document.querySelector(".landing").hidden = true;
+    document.querySelector(".gameOver").hidden = true;
     document.querySelector(".qPages").hidden = false;
     startTimer();
     generateQuestion();
 })
 
-// Generate questions
+// Generate question and answer choice pages
 function generateQuestion() {
-
-
     question.textContent = qArray[i];
 
-// Generate listed answer buttons using const arrays
-
+    // Generate answer buttons using const arrays
     btn0.textContent = choiceArray[i][0];
     btn1.textContent = choiceArray[i][1];
     btn2.textContent = choiceArray[i][2];
     btn3.textContent = choiceArray[i][3];
-        
-// Add listeners for next function
-    // btn1.addEventListener("click", Next);
-    // btn2.addEventListener("click", Next);
-    // btn3.addEventListener("click", Next);
-    // btn4.addEventListener("click", Next);
 
-// Add right/wrong answer listeners
+    // Add right/wrong listeners
     if (rightAnswers.includes(btn0.textContent)) {
         btn0.addEventListener("click", rightAns);
     } else{
@@ -103,22 +85,19 @@ function generateQuestion() {
         btn3.addEventListener("click", wrongAns);
     }
 
+    // Check for last question
     if (i>6) {
         GameOver();
     }
 }
 
-// function Next(){
-//     i++;
-//     generateQuestion();
-//     // event.stopPropagation;
-// }
-
 function rightAns(){
+    // Right answer moves to next question
     liveCheck.textContent = "Correct! ✅ 😀";
     console.log("yes!");
     i++;
 
+    // Remove event listeners before next question
     btn0.removeEventListener("click", rightAns);
     btn0.removeEventListener("click", wrongAns);
     btn1.removeEventListener("click", rightAns);
@@ -131,11 +110,13 @@ function rightAns(){
 }
 
 function wrongAns(){
+    // Wrong answer subtracts time, moves to next question
     liveCheck.textContent = "Wrong! ❌ 😢";
     secondsLeft = secondsLeft - 10;
     console.log("nope!!");
     i++;
 
+    // Remove event listeners before next question
     btn0.removeEventListener("click", rightAns);
     btn0.removeEventListener("click", wrongAns);
     btn1.removeEventListener("click", rightAns);
@@ -147,6 +128,7 @@ function wrongAns(){
     generateQuestion();
 }
 
+// Timer function for 60-second quiz
 function startTimer() {
     let timerInterval = setInterval(function() {
     secondsLeft--;
@@ -164,55 +146,51 @@ function startTimer() {
 };
 
 function GameOver() {
+    // Hide and reveal appropriate elements
+    document.querySelector(".qPages").hidden = true;
+    document.getElementById("timediv").hidden = true;
+    document.querySelector(".gameOver").hidden = false;
+
+    // Save score to localStorage
     let yourScore = secondsLeft ;
     if (yourScore < 0) {
         yourScore = 0;
     }
     localStorage.setItem("newScore", yourScore);
-
-    document.querySelector(".qPages").hidden = true;
-    document.getElementById("timediv").hidden = true;
-    document.querySelector(".gameOver").hidden = false;
+    
+    // Display your score
     liveCheck.textContent = "GAME OVER. Your score: " + yourScore;
     liveCheck.setAttribute("style", "front-size: 25px; font-weight: bold; ");
 
+    // Create save score button
     let scoreBtn = document.getElementById("saveScore");
     scoreBtn.textContent = "Save score";
     scoreBtn.addEventListener("click", saveScore);
 }
 
 function saveScore() {
+    // Hide and reveal appropriate elements
     document.querySelector(".gameOver").hidden = true;
     document.querySelector(".liveGrade").hidden = true;
 
-    let hiScoreHeading = document.getElementById("hiScoreHeading");
-    hiScoreHeading.textContent = "HIGH SCORES:";
-
+    // Take initials input, retrieve score from localStorage
     let initials = document.querySelector("#initials").value;
     let yourScore = localStorage.getItem("newScore");
     let hiScore = {initials:initials, score:yourScore};
     
+    // Array of objects containing recent player scores
     let hiScoreArray = JSON.parse(localStorage.getItem("highScores")) || [];
     hiScoreArray.push(hiScore);
-
-    // StoredScores = StoredScores.concat(hiScoreArray);
-
     localStorage.setItem("highScores", JSON.stringify(hiScoreArray));
-    // localStorage.setItem("highScores", StoredScores);
 
+    // Display list of recent scores 
+    let hiScoreHeading = document.getElementById("hiScoreHeading");
+    hiScoreHeading.textContent = "HIGH SCORES:";
     let hiScoreList = document.getElementById("hiScoreList");
-
-
-
     for (let i = 0; i < hiScoreArray.length; i++) {
         let liScore = document.createElement("li");
         hiScoreList.appendChild(liScore);
         liScore.textContent = hiScoreArray[i].initials + ": " + hiScoreArray[i].score;
 
     }
-
-    console.log(hiScoreArray);
-
-    hiScores.textContent = StoredScores;
-
 }

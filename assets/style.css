@@ -1,22 +1,20 @@
 body {
     background-image: radial-gradient( lightblue, white );
 }
-
-
-
-#timediv {
-    position: absolute;
-    top: 15px;
-    right: 25px;
-}
-
 main {
     text-align: center;
     padding: 15px;
     margin: 20px 20%;
 }
 
-/* LANDING: TITLE FONT, INSTRUCTIONS FONT */
+/* TIMER */
+#timediv {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+}
+
+/* LANDING: TITLE FONT, INSTRUCTIONS, START BTN */
 .landing h1 {
     font-size: 30px;
     font-weight: bolder;
@@ -25,13 +23,10 @@ main {
     margin-top: 22px;
     font-size: 18px;
 }
-
-
 .button {
     padding: 5px;
     margin: 10px;
 }
-
 #startBtn {
     background-color: rgb(80, 124, 255);
     font-size: 20px;
@@ -40,32 +35,37 @@ main {
     border-radius: 5px;
     transition-duration: 0.3s;
 }
-
 #startBtn:hover {
     background-color: rgb(78, 175, 255);
     box-shadow: 6px 6px 12px black;
 }
 
+/* QUESTIONS AND ANSWERS */
 .question {
     font-size: 25px;
     margin-bottom: 15px;
 }
-
 .choices li button {
     padding: 8px;
     margin: 2px;
     width: 400px;
     height: 35px;
     text-align: left;
-
+    font-family: monospace;
 }
-
 #liveCheck {
     padding: 8px;
     margin: 5px;
 }
 
+/* GAMEOVER AND SAVE SCORE PAGE */
 #saveScore {
     padding: 3px;
     margin: 10px;
+}
+
+/* HIGH SCORE LIST */
+#hiScoreList{
+    padding: 5px;
+    margin: 5px;
 }

@@ -10,20 +10,21 @@
 </head>
 <body>
     <header>
-        <!-- Timer div for countdown that starts on button click -->
+        <!-- Timer div that starts on startBtn click -->
         <div id="timediv">60 seconds left</div>
     </header>
 
     <main>
+        <!-- Landing page with startBtn -->
         <section class="landing">
             <h1>Timed Coding Quiz</h1>
             <h4>Attempt to answer the following questions, all related to coding, within the alloted time (see top-right of page). The time remaining is saved as your high score. But be careful! Incorrect answers will penalize your time (and score) by ten seconds... Are you ready?</h4>
-            
             <div class="button">
                 <button id="startBtn">Start Quiz</button>
             </div>
         </section>
 
+        <!-- Pages for questions and answer choices -->
         <section class="qPages">
             <h2 class="question"></h2>
             <ul class="choices">
@@ -35,23 +36,24 @@
             </ul>
         </section>
 
+        <!-- Live grade component indicating right/wrong -->
         <section class="liveGrade">
             <p id="liveCheck"></p>
         </section>
 
+        <!-- Game Over page w button to save score-->
         <section class="gameOver">
             <div>
                 <label form="userInitials">Your initials:</label>
                 <input type="text" id="initials"/>
             </div>
-
             <button id="saveScore"></button>
         </section>
 
-        <section>
+        <!-- High score display page -->
+        <section class="HighScorePage">
             <h1 id="hiScoreHeading"></h1>
             <ul id="hiScoreList"></ul>
-            <div id="highscores"></div>
         </section>
 
     </main>
