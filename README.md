@@ -22,4 +22,4 @@ This project came almost entirely from my own faculties, although I would find m
 Here is a screenshot:
 ![screenshot of coding quiz webpage](demo.png)
 
-I hope you appreciate this Coding Quiz, you can quiz yourself at the [deployed GitHub webpage.] (https://etc)
+I hope you appreciate this Coding Quiz, you can quiz yourself at the [deployed GitHub webpage.](https://briancampbell003.github.io/module-4-coding-quiz)
